@@ -27,16 +27,19 @@ print(df_v2.head())
 pizza_unique_name = []
 Quantite = []
 Prix_unitaire = []
+horodatage_pizza = []
 
 for pizza in df['pizza_name_id'].unique():
     pizza_unique_name.append(pizza)
     Quantite.append(df[df['pizza_name_id']==pizza]['quantity'].sum())
     Prix_unitaire.append(df[df['pizza_name_id']==pizza]['unit_price'].values[0])
+    horodatage_pizza.append(df[df['pizza_name_id']==pizza]['order_date'].values[0])
 
 data_pizzas = pd.DataFrame({
+    'Horodatage' : horodatage_pizza,
     'Name' : pizza_unique_name,
     'Quantité total commande' : Quantite,
-    'Prix unitaire' : Prix_unitaire
+    'Prix unitaire' : Prix_unitaire,
     })
 
 data_pizzas['Chiffre Affaire'] = data_pizzas['Prix unitaire']*data_pizzas['Quantité total commande']
@@ -50,13 +53,16 @@ print(data_pizzas)
 commande_client = []
 Quantite_pizza_client = []
 prix_total_client = []
+horodatage_client = []
 
 for client in df['order_id'].unique():
     commande_client.append(client)
     Quantite_pizza_client.append(df[df['order_id']==client]['quantity'].sum())
     prix_total_client.append(df[df['order_id']==client]['total_price'].sum())
+    horodatage_client.append(df[df['order_id']==client]['order_date'].values[0])
 
 data_clients = pd.DataFrame({
+    'Horodatage' : horodatage_client,
     'client' : commande_client,
     'Quantite de pizza' : Quantite_pizza_client,
     'Prix total' : prix_total_client,
