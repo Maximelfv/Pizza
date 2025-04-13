@@ -42,6 +42,8 @@ data_pizzas = pd.DataFrame({
     'Prix unitaire' : Prix_unitaire,
     })
 
+data_pizzas['Horodatage'] = pd.to_datetime(data_pizzas['Horodatage'])
+
 data_pizzas['Chiffre Affaire'] = data_pizzas['Prix unitaire']*data_pizzas['Quantité total commande']
 
 print(data_pizzas)
@@ -68,6 +70,8 @@ data_clients = pd.DataFrame({
     'Prix total' : prix_total_client,
     })
 
+data_clients['Horodatage'] = pd.to_datetime(data_clients['Horodatage'])
+
 print(data_clients)
 
 
@@ -84,3 +88,30 @@ def info(data):
     print(f" Moyenne CA: {moyenne_ca}\n Médiane CA: {mediane_ca},\n Max CA: {max_ca},\n Min CA: {min_ca}\n")
     return moyenne_ca,mediane_ca,max_ca,min_ca
 
+
+####################################################################################
+####################################################################################
+####################################################################################
+
+
+############################### PARTIE IA ##########################################
+from datetime import datetime
+
+Mois = []
+Quantite_pizza_mois = []
+Chiffre_Affaire_mois = []
+
+df['order_date'] = pd.to_datetime(df['order_date'])
+
+for i in range(1, 13):
+    Mois.append(i)
+    Quantite_pizza_mois.append(df[df['order_date'].dt.month == i]['quantity'].sum()) 
+    Chiffre_Affaire_mois.append(df[df['order_date'].dt.month == i]['total_price'].sum())
+
+data_pizzas_mois = pd.DataFrame({
+    'Mois' : Mois,
+    'Quantité total commande' : Quantite_pizza_mois,
+    'Chiffre Affaire' : Chiffre_Affaire_mois,
+    })  
+
+print(data_pizzas_mois)

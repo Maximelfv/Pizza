@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-from read_data import data_pizzas,info,df
+from read_data import data_pizzas,info,df,data_pizzas_mois
 
 #  Calcul moyenne, médianne, max et min du chiffre d'affaires des pizzas 
 moyenne_ca_pizza,mediane_ca_pizza,max_ca_pizza,min_ca_pizza = info(data_pizzas['Chiffre Affaire'])
@@ -71,11 +71,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-X = data_pizzas[['Horodatage']]
-X['Horodatage'] = pd.to_datetime(X['Horodatage'])
-X['Horodatage'] = X['Horodatage'].map(pd.Timestamp.toordinal)  # conversion en entier
+X = data_pizzas_mois[['Mois']]
 
-y = data_pizzas['Chiffre Affaire']
+
+y = data_pizzas_mois['Chiffre Affaire']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
