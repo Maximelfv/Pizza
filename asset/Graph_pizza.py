@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 from read_data import data_pizzas
+from code_pizza import moyenne_ca_pizza
 
 # 1️⃣ Histogramme : Distribution du chiffre d'affaires total par commande
 

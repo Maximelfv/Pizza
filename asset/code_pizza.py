@@ -5,31 +5,26 @@ import matplotlib.pyplot as plt
 
 from read_data import data_pizzas,info,df
 
-#  Calcul moyenne, médianne, max et min
-
+#  Calcul moyenne, médianne, max et min du chiffre d'affaires des pizzas 
 moyenne_ca_pizza,mediane_ca_pizza,max_ca_pizza,min_ca_pizza = info(data_pizzas['Chiffre Affaire'])
 
-#  Affichage des pizzas et des client dont chiffres d'affaires > 3*moyenne
+#  Affichage des pizzas dont chiffres d'affaires > 3*moyenne
 pizzas_plus_rentables = data_pizzas[data_pizzas['Chiffre Affaire'] > 3*moyenne_ca_pizza]
 nb_pizzas_rentable = len(pizzas_plus_rentables)
 print(f" Les pizzas les plus rentables :\n {pizzas_plus_rentables} \n Soit {nb_pizzas_rentable} pizzass dont le CA est supérieur à {3*moyenne_ca_pizza:.2f}")
 
-
 # Pizza la plus chère
 prix_max = max(df['unit_price'])
-name_pizza_max = df[df['unit_price'] == prix_max]['pizza_name'].values
-
+name_pizza_max = df[df['unit_price'] == prix_max]['pizza_name'].values 
 print(f" Voici la pizza la plus chère : {name_pizza_max[0]} à {prix_max} €")
 
 # Calcul du coefficient de corrélation entre prix unitaire et quantité vendue des pizzas
 correlation = data_pizzas['Prix unitaire'].corr(data_pizzas['Quantité total commande'])
-
 print(f" Voici la corrélation entre le prix de chaque pizza et la quantité : {correlation}")
-
 # corr = -0.0033... proche de 0 donc il n'y a aucun lien entre le prix des pizzas et la quantité vendu
 
+#Recherche de la pizza la plus rentable
 pizza_plus_rentable = data_pizzas[data_pizzas['Chiffre Affaire']==max(data_pizzas['Chiffre Affaire'])]['Name']
-
 print(f" Voici la pizza la plus rentable : {pizza_plus_rentable}")
 
 
