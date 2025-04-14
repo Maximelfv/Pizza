@@ -77,6 +77,7 @@ def info(data):
 
 
 ############################### PARTIE IA ##########################################
+# ================================= Mois ==========================================
 Mois = []
 Quantite_pizza_mois = []
 Chiffre_Affaire_mois = []
@@ -96,6 +97,22 @@ data_pizzas_mois = pd.DataFrame({
 
 # Le data_pizza_mois regroupe toute les commandes de pizza par mois
 # Et informe sur le nombre de pizzas commandé, le prix total de la commande par mois
+
+
+
+# ================================= Jour ==========================================
+df_journalier = df.groupby("order_date").agg({
+    "quantity": "sum",
+    "total_price": "sum"
+}).reset_index()
+
+# ================================= Semaine ========================================
+df_semaine = df.groupby(pd.Grouper(key="order_date", freq="W")).agg({
+    "quantity": "sum",
+    "total_price": "sum"
+}).reset_index()
+
+
 
 
 
