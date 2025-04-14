@@ -84,11 +84,9 @@ data_pareto['Cumsum_pct'] = 100 * data_pareto['Cumsum'] / data_pareto['Prix tota
 # Analyse RFM
 rfm = data_clients.copy()
 rfm['Récence'] = (pd.Timestamp("2024-12-31") - rfm['Horodatage']).dt.days
-rfm = rfm.groupby('client').agg({
-    'Récence': 'min',
-    'Horodatage': 'count',
-    'Prix total': 'sum'
-}).rename(columns={'Horodatage': 'Fréquence', 'Prix total': 'Montant'}).reset_index()
+rfm['Récence'] = (pd.Timestamp("2024-12-31") - rfm['Horodatage']).dt.days
+rfm.rename(columns={'Prix total': 'Montant', 'client': 'ID'}, inplace=True)
+rfm['Fréquence'] = 1
 
 
 

@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 from read_data import data_pizzas,info,df,data_pizzas_mois
