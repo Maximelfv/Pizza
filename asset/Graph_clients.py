@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 from read_data import data_clients
-
+"""
 # 1️⃣ Histogramme : Distribution du chiffre d'affaires total par commande
 
 
@@ -70,3 +70,56 @@ plt.ylabel('Quantité Totale Commandée')
 plt.title("Relation Dépenses / Quantité (Clients)")
 plt.grid(True)
 plt.show()
+
+"""
+
+####################################################################################
+####################################################################################
+####################################################################################
+
+
+############################### PARTIE IA ##########################################
+from code_client import data_clients
+
+plt.scatter(data_clients['Prix total'], data_clients['Quantite de pizza'], c=data_clients['Cluster'], cmap='rainbow')
+plt.xlabel('Prix total (€)')
+plt.ylabel('Quantité de pizza')
+plt.title('Classification des Produits par Qualité')
+plt.grid(True)
+plt.show()
+
+
+from code_client import X, y, y_pred, data_pareto
+
+
+# Graphiques
+plt.figure(figsize=(12, 5))
+
+# 1️⃣ Régression linéaire
+plt.subplot(1, 2, 1)
+plt.scatter(X, y, color='blue', label='Données') 
+plt.plot(X, y_pred, color='red', label='Régression linéaire')
+plt.title("Quantité de pizza par client (indexé)")
+plt.xlabel("Index client")
+plt.ylabel("Quantité de pizza")
+plt.legend()
+plt.grid(True)
+
+# 2️⃣ Courbe de Pareto
+plt.subplot(1, 2, 2)
+plt.plot(data_pareto['Cumsum_pct'].values, color='green')
+plt.axhline(y=80, color='red', linestyle='--', label='Seuil 80%')
+plt.title("Courbe de Pareto - CA cumulé")
+plt.xlabel("Clients (triés par CA)")
+plt.ylabel("Pourcentage cumulé du CA")
+plt.grid(True)
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+
+
+
+
+

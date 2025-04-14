@@ -53,6 +53,42 @@ print(aberrants_clients_inf_v2[['client', 'Prix total']])
 
 
 ############################### PARTIE IA ##########################################
+from sklearn.cluster import KMeans
+
+
+X = data_clients[['Prix total', 'Quantite de pizza']]
+
+kmeans = KMeans(n_clusters=5, random_state=42, n_init='auto')
+data_clients['Cluster'] = kmeans.fit_predict(X)
+
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+# Simulation d'un DataFrame client (remplacer ceci par ton vrai data_clients si besoin)
+# Ici, on simule les colonnes nécessaires pour la démo
+
+
+# Régression linéaire
+X = np.arange(len(data_clients)).reshape(-1, 1)
+y = data_clients['Quantite de pizza'].values
+model = LinearRegression()
+model.fit(X, y)
+y_pred = model.predict(X)
+
+# Courbe de Pareto
+data_pareto = data_clients.sort_values(by='Prix total', ascending=False)
+data_pareto['Cumsum'] = data_pareto['Prix total'].cumsum()
+data_pareto['Cumsum_pct'] = 100 * data_pareto['Cumsum'] / data_pareto['Prix total'].sum()
+
+# Analyse RFM
+rfm = data_clients.copy()
+rfm['Récence'] = (pd.Timestamp("2024-12-31") - rfm['Horodatage']).dt.days
+rfm = rfm.groupby('client').agg({
+    'Récence': 'min',
+    'Horodatage': 'count',
+    'Prix total': 'sum'
+}).rename(columns={'Horodatage': 'Fréquence', 'Prix total': 'Montant'}).reset_index()
 
 
 
