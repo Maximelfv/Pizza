@@ -1,0 +1,147 @@
+ =============================================================      
+ =============================================================      
+              Partie Client       
+
+ Voici les données clients :      
+ Moyenne CA: 38.30726229508196    
+ Médiane CA: 32.5,
+ Max CA: 444.2,
+ Min CA: 9.75
+
+ Moyenne Qte: 2.321967213114754   
+ Médiane Qte: 2.0,
+ Max Qte: 28.0,
+ Min Qte: 1.0
+
+ Les clients les plus rentables : 
+       Horodatage  ...  Prix total16    2015-01-01  ...      184.50 
+143   2015-01-03  ...      238.45 
+270   2015-01-05  ...      210.50 
+329   2015-01-06  ...      251.40 
+393   2015-01-07  ...      202.75 
+...          ...  ...         ... 
+21224 2015-12-29  ...      199.65 
+21227 2015-12-29  ...      244.25 
+21248 2015-12-30  ...      241.65 
+21250 2015-12-30  ...      223.40 
+21287 2015-12-31  ...      203.45 
+
+[359 rows x 4 columns]
+ Soit 359 clients dont le CA est supérieur à 153.23
+Corrélation entre total dépensé et quantité commandée (Clients) : 0.98
+Voici le client qui a dépensé le plus : 18845.0 avec 444.2 €        
+Valeur de l'écart-type pour les clients : 30.65
+Nombre de clients avec CA aberrant (> 2 écarts-types) : 569
+Nombre de clients avec CA aberrant (< 2 écarts-types) : 0
+Nombre total de clients : 21350   
+Nombre de clients avec CA aberrant (> 8 écarts-types) : 4
+Nombre de clients avec CA aberrant (< 8 écarts-types) : 0
+        client  Prix total        
+1095    1096.0      285.15        
+6168    6169.0      284.00        
+10759  10760.0      417.15        
+18844  18845.0      444.20        
+Empty DataFrame
+Columns: [client, Prix total]     
+Index: []
+ =============================================================      
+ =============================================================      
+              Partie IA
+
+ KMeans :
+        client  Cluster
+0          1.0        0
+1          2.0        2
+2          3.0        0
+3          4.0        0
+4          5.0        0
+...        ...      ...
+21345  21346.0        2
+21346  21347.0        2
+21347  21348.0        2
+21348  21349.0        0
+21349  21350.0        0
+
+[21350 rows x 2 columns]
+ Regression Linéaire :
+ Le coefficient de détermination R² est : 0.00
+ Regression linéaire prédiction : 
+R² score (test set) : -0.00       
+MSE (test set)      : 2.47        
+MAE (test set)      : 1.11        
+ Voici les données de prévision des client sur les 3 derniers mois :R² score (test set) : -1.96       
+MSE (test set)      : 11528.05    
+MAE (test set)      : 87.16       
+Prédiction du nombre de clients pour les 3 derniers mois :
+    Mois  ...  Prévision_Clients
+9     10  ...               1794  
+10    11  ...               1793  
+11    12  ...               1791  
+
+[3 rows x 3 columns]
+ Voici les données de prévision des client sur les 13 dernières semaines :
+R² score (test set) : 0.35        
+MSE (test set)      : 3605.96     
+MAE (test set)      : 37.89       
+ Pareto :
+ Voici les nombre de clients qui représentent 80% du CA :
+12089 clients représentent 80% du 
+CA. sur 21350 clients
+ RFM :
+            ID  ...  Montant      
+0          1.0  ...    13.25      
+1          2.0  ...    92.00      
+2          3.0  ...    37.25      
+3          4.0  ...    16.50      
+4          5.0  ...    16.50      
+...        ...  ...      ...      
+21345  21346.0  ...    62.25      
+21346  21347.0  ...    66.50      
+21347  21348.0  ...    46.70      
+21348  21349.0  ...    20.25      
+21349  21350.0  ...    12.75      
+
+[21350 rows x 4 columns]
+ Voici les 10 clients les plus récents :
+            ID  ...  Montant      
+21349  21350.0  ...    12.75      
+21296  21297.0  ...    32.75      
+21297  21298.0  ...    91.50      
+21298  21299.0  ...    36.50      
+21299  21300.0  ...    70.25      
+21300  21301.0  ...    52.25      
+21301  21302.0  ...    57.75      
+21295  21296.0  ...    32.25      
+21302  21303.0  ...    74.50      
+21304  21305.0  ...    37.00      
+
+[10 rows x 4 columns]
+ Voici les 10 clients les plus fréquents :
+            ID  ...  Montant
+0          1.0  ...    13.25      
+14240  14241.0  ...    16.75      
+14238  14239.0  ...    34.50      
+14237  14238.0  ...    83.65      
+14236  14237.0  ...    16.50      
+14235  14236.0  ...    45.75      
+14234  14235.0  ...    24.25      
+14233  14234.0  ...    20.75      
+14232  14233.0  ...   192.90      
+14231  14232.0  ...    40.50      
+
+[10 rows x 4 columns]
+ Voici les 10 clients les plus dépensiers :
+            ID  ...  Montant
+18844  18845.0  ...   444.20      
+10759  10760.0  ...   417.15      
+1095    1096.0  ...   285.15      
+6168    6169.0  ...   284.00      
+739      740.0  ...   280.95      
+12256  12257.0  ...   276.75      
+1684    1685.0  ...   272.75      
+4481    4482.0  ...   267.20      
+5451    5452.0  ...   267.10      
+16785  16786.0  ...   265.55      
+
+[10 rows x 4 columns]
+ =============================================================  

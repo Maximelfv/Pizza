@@ -1,0 +1,73 @@
+ =============================================================      
+ =============================================================      
+              Partie Pizza       
+
+ Voici les données pizzas :      
+ Moyenne CA: 8987.473076923075    
+ Médiane CA: 7200.0,
+ Max CA: 29257.5,
+ Min CA: 1006.6000000000001       
+
+ Voici les données sur les quantités :
+ Moyenne CA: 544.7692307692307    
+ Médiane CA: 464.0,
+ Max CA: 1914.0,
+ Min CA: 28.0
+
+ Les pizzas les plus rentables :  
+   Horodatage  ... Chiffre Affaire5 2015-01-01  ...         29257.5 
+
+[1 rows x 5 columns]
+ Soit 1 pizzass dont le CA est supérieur à 26962.42
+ Voici la pizza la plus chère : The Greek Pizza à 35.95 €
+ Voici la corrélation entre le prix de chaque pizza et la quantité : -0.0033691797835727955
+ Voici la pizza la plus rentable : 5    thai_ckn_l
+Name: Name, dtype: object
+Valeur de l'écart-type pour les pizzas : 5915.97
+Nombre de pizzas dont le chiffre d'affaires est aberrant (> 2 écarts-types) : 6
+Nombre de pizzas dont le chiffre d'affaires est aberrant (< 2 écarts-types) : 0
+Nombre total de pizzas uniques : 91
+             Name  Chiffre Affaire2   five_cheese_l         26066.505      thai_ckn_l         29257.5016   spicy_ital_l         23011.7520   southw_ckn_l         21082.0027     big_meat_s         22968.0029  four_cheese_l         23622.20Empty DataFrame
+Columns: [Name, Chiffre Affaire]  
+Index: []
+Nombre de pizzas dont le chiffre d'affaires est aberrant (> 8 écarts-types) : 0
+Nombre de pizzas dont le chiffre d'affaires est aberrant (< 8 écarts-types) : 0
+Empty DataFrame
+Columns: [Name, Chiffre Affaire]  
+Index: []
+Empty DataFrame
+Columns: [Name, Chiffre Affaire]  
+Index: []
+ =============================================================      
+ =============================================================      
+              Partie IA
+
+ Régression linéaire avec prédiction sur les 3 derniers mois :      
+Erreur quadratique moyenne (MSE) : 7675105.15
+Erreur absolue moyenne (MAE)     : 2295.08
+Coefficient de détermination (R²): 0.07
+
+ Régression linéaire avec prédiction sur les 13 dernières semaines :Erreur quadratique moyenne (MSE) : 79.27
+Erreur absolue moyenne (MAE)     : 7.47
+Coefficient de détermination (R²): 0.99
+==========================        
+ Régression linéaire journalière :Score de précision : 0.988        
+Erreur quadratique moyenne : 7.14479
+
+ Nombre de pizzas prédit : 5      
+
+ Comparatif réel vs prédit (par jour) :
+   order_date  ...  prediction    
+0  2015-01-01  ...         164    
+1  2015-01-02  ...         165    
+2  2015-01-03  ...         161    
+3  2015-01-04  ...         107    
+4  2015-01-05  ...         125    
+5  2015-01-06  ...         147    
+6  2015-01-07  ...         134    
+7  2015-01-08  ...         172    
+8  2015-01-09  ...         129    
+9  2015-01-10  ...         149    
+10 2015-01-11  ...         114    
+
+[11 rows x 3 columns]
