@@ -68,7 +68,7 @@ r2 = r2_score(y, y_pred) # Coefficient de détermination R²
 # Prédiction de la quantité de pizza pour le client
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-# Séparation en jeu d'entraînement et de test (75% / 25%)
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.05, random_state=42)
 
 # Entraînement du modèle
@@ -118,6 +118,37 @@ mae_3mois = mean_absolute_error(test['Nombre_Clients'], y_pred_3mois)
 test.loc[:, 'Prévision_Clients'] = y_pred_3mois.astype(int)
 
 
+
+# Prédiction du nombre de clients pour les 13 derniers semaines
+# 🎯 Extraire le numéro de semaine
+data_clients['Semaine'] = data_clients['Horodatage'].dt.isocalendar().week
+
+# 👥 Nombre de clients uniques par semaine
+clients_par_semaine = data_clients.groupby('Semaine')['client'].nunique().reset_index()
+clients_par_semaine.rename(columns={'client': 'Nombre_Clients'}, inplace=True)
+
+# 🧪 Séparation : entraînement = semaines 1 à 48 | test = semaines 49 à 52
+train_semaine = clients_par_semaine[clients_par_semaine['Semaine'] <= 48].copy()
+test_semaine = clients_par_semaine[clients_par_semaine['Semaine'] > 48].copy()
+
+# 📈 Régression linéaire
+X_train_semaine = train_semaine[['Semaine']]
+y_train_semaine = train_semaine['Nombre_Clients']
+X_test_semaine = test_semaine[['Semaine']]
+
+model_semaine = LinearRegression()
+model_semaine.fit(X_train_semaine, y_train_semaine)
+
+# 🔮 Prédiction
+y_pred_semaine = model_semaine.predict(X_test_semaine)
+
+# ✅ Évaluation
+r2_semaine = r2_score(test_semaine['Nombre_Clients'], y_pred_semaine)
+mse_semaine = mean_squared_error(test_semaine['Nombre_Clients'], y_pred_semaine)
+mae_semaine = mean_absolute_error(test_semaine['Nombre_Clients'], y_pred_semaine)
+
+# 📊 Résultats
+test_semaine['Prévision_Clients'] = y_pred_semaine.astype(int)
 
 
 # ============================== Pareto ==================================
@@ -183,6 +214,10 @@ def __main__():
     print(f"MAE (test set)      : {mae_3mois:.2f}")
     print("Prédiction du nombre de clients pour les 3 derniers mois :")
     print(test[['Mois', 'Nombre_Clients', 'Prévision_Clients']])
+    print(" Voici les données de prévision des client sur les 13 dernières semaines :")
+    print(f"R² score (test set) : {r2_semaine:.2f}")
+    print(f"MSE (test set)      : {mse_semaine:.2f}")
+    print(f"MAE (test set)      : {mae_semaine:.2f}")
     print(" Pareto :")
     print(" Voici les nombre de clients qui représentent 80% du CA :")
     print(f"{len(seuil_80)} clients représentent 80% du CA. sur {len(data_clients)} clients")

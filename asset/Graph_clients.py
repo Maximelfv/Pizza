@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from code_client import data_clients
-
+"""
 # 1️⃣ Histogramme : Distribution du chiffre d'affaires total par commande
 
 # Distribution du CA par Client
@@ -120,7 +120,7 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-
+"""
 # Prediction sur le nombre de client sur les 3 derniers mois
 from code_client import train, test, y_train_3mois, y_pred_3mois
 
@@ -132,6 +132,25 @@ plt.title(" Prédiction du nombre de clients pour les 3 derniers mois")
 plt.xlabel("Mois")
 plt.ylabel("Nombre de Clients")
 plt.xticks(range(1,13))
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+
+
+# Prediction sur le nombre de client sur les 13 dernières semaines
+from code_client import train_semaine, test_semaine, y_train_semaine, y_pred_semaine
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(train_semaine['Semaine'], y_train_semaine, marker='o', label='Historique (semaines 1-38)', color='blue')
+plt.plot(test_semaine['Semaine'], test_semaine['Nombre_Clients'], marker='x', label='Réel (semaines 39-52)', color='green')
+plt.plot(test_semaine['Semaine'], y_pred_semaine, linestyle='--', marker='s', label='Prévu (semaines 39-52)', color='orange')
+plt.title(" Prédiction du nombre de clients pour les 13 dernières semaines")
+plt.xlabel("Numéro de Semaine")
+plt.ylabel("Nombre de Clients")
+plt.xticks(test_semaine['Semaine'].tolist())
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
