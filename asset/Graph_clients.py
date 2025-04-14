@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from code_client import data_clients
-"""
+
 # 1️⃣ Histogramme : Distribution du chiffre d'affaires total par commande
 
 # Distribution du CA par Client
@@ -69,7 +69,6 @@ plt.title("Relation Dépenses / Quantité (Clients)")
 plt.grid(True)
 plt.show()
 
-"""
 
 
 

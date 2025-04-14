@@ -6,7 +6,7 @@ from read_data import data_pizzas
 from code_pizza import moyenne_ca_pizza
 
 # 1️⃣ Histogramme : Distribution du chiffre d'affaires total par commande
-"""
+
 # Distribution du CA par Pizza
 plt.figure(figsize=(10,5))
 plt.hist(data_pizzas['Chiffre Affaire'], bins=30, color='orange', edgecolor='black')
@@ -68,7 +68,7 @@ plt.ylabel('Quantité Totale Commandée')
 plt.title("Relation Prix Unitaire / Quantité (Pizzas)")
 plt.grid(True)
 plt.show()
-"""
+
 ####################################################################################
 ####################################################################################
 ####################################################################################
