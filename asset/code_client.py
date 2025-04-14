@@ -120,27 +120,30 @@ test.loc[:, 'Prévision_Clients'] = y_pred_3mois.astype(int)
 
 
 # Prédiction du nombre de clients pour les 13 derniers semaines
-# 🎯 Extraire le numéro de semaine
+from sklearn.ensemble import RandomForestRegressor 
+# 🎯 Ajouter la semaine
 data_clients['Semaine'] = data_clients['Horodatage'].dt.isocalendar().week
 
-# 👥 Nombre de clients uniques par semaine
-clients_par_semaine = data_clients.groupby('Semaine')['client'].nunique().reset_index()
-clients_par_semaine.rename(columns={'client': 'Nombre_Clients'}, inplace=True)
+# 🧠 Calculer le CA par semaine
+clients_par_semaine = data_clients.groupby('Semaine').agg({
+    'client': 'nunique',
+    'Prix total': 'sum'
+}).reset_index().rename(columns={'client': 'Nombre_Clients', 'Prix total': 'CA'})
 
-# 🧪 Séparation : entraînement = semaines 1 à 48 | test = semaines 49 à 52
-train_semaine = clients_par_semaine[clients_par_semaine['Semaine'] <= 48].copy()
-test_semaine = clients_par_semaine[clients_par_semaine['Semaine'] > 48].copy()
+# 🎯 Séparation
+train_semaine = clients_par_semaine[clients_par_semaine['Semaine'] <= 38].copy()
+test_semaine = clients_par_semaine[clients_par_semaine['Semaine'] > 38].copy()
 
-# 📈 Régression linéaire
-X_train_semaine = train_semaine[['Semaine']]
+# 📊 Modèle Random Forest
+X_train_semaine = train_semaine[['Semaine', 'CA']]
 y_train_semaine = train_semaine['Nombre_Clients']
-X_test_semaine = test_semaine[['Semaine']]
+X_test_semaine = test_semaine[['Semaine', 'CA']]
 
-model_semaine = LinearRegression()
-model_semaine.fit(X_train_semaine, y_train_semaine)
+model_rf = RandomForestRegressor(n_estimators=100, random_state=42)
+model_rf.fit(X_train_semaine, y_train_semaine)
 
 # 🔮 Prédiction
-y_pred_semaine = model_semaine.predict(X_test_semaine)
+y_pred_semaine = model_rf.predict(X_test_semaine)
 
 # ✅ Évaluation
 r2_semaine = r2_score(test_semaine['Nombre_Clients'], y_pred_semaine)

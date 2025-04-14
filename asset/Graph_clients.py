@@ -69,7 +69,7 @@ plt.title("Relation Dépenses / Quantité (Clients)")
 plt.grid(True)
 plt.show()
 
-
+"""
 
 
 
@@ -120,7 +120,7 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-"""
+
 # Prediction sur le nombre de client sur les 3 derniers mois
 from code_client import train, test, y_train_3mois, y_pred_3mois
 
