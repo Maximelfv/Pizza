@@ -2,28 +2,12 @@ import pandas as pd
 import numpy as np
 
 
-
-
 df = pd.read_csv("./dataset/pizza_sales.csv")
-print(df.head())
-print(df.info())
 
 
-# Le chiffre d'affaire existe deja (total_price) je vais juste le remplacer
-
-#  Ajout des chiffres d'affaires
-df_v2 = df.drop(columns='total_price')
-df_v2['Chiffre_Affaires'] = df['unit_price'] * df['quantity']
-
-print(df_v2.info())
-print(df_v2.head())
-
-
-
-# Création des dataFrame pour les pizzas et pour les clients
+# ============= Création des dataFrame pour les pizzas et pour les clients ===================
 
 ########################### PIZZA  ###########################################################
-
 pizza_unique_name = []
 Quantite = []
 Prix_unitaire = []
@@ -42,16 +26,14 @@ data_pizzas = pd.DataFrame({
     'Prix unitaire' : Prix_unitaire,
     })
 
-data_pizzas['Horodatage'] = pd.to_datetime(data_pizzas['Horodatage'])
-
+data_pizzas['Horodatage'] = pd.to_datetime(data_pizzas['Horodatage'], dayfirst=True)
 data_pizzas['Chiffre Affaire'] = data_pizzas['Prix unitaire']*data_pizzas['Quantité total commande']
-
-print(data_pizzas)
 # Le data_pizza regroupe toute les differentes pizzas possible de commander (nom + taille)
-# Et informe sur le nombre de fois elle a était commandé et son prix unitaire et de son CA
+# Et informe sur le nombre de fois elle a était commandé et son prix unitaire et de son CA et la date de commande
+
+
 
 ########################### CLIENT   ########################################################
-
 commande_client = []
 Quantite_pizza_client = []
 prix_total_client = []
@@ -70,9 +52,10 @@ data_clients = pd.DataFrame({
     'Prix total' : prix_total_client,
     })
 
-data_clients['Horodatage'] = pd.to_datetime(data_clients['Horodatage'])
+data_clients['Horodatage'] = pd.to_datetime(data_clients['Horodatage'], dayfirst=True)
+# Le data_clients regroupe toute les commandes de pizza par client 
+# Et informe sur le nombre de pizzas commandé, le prix total de la commande et la date de commande par client
 
-print(data_clients)
 
 
 #############################################################################################
@@ -85,7 +68,6 @@ def info(data):
     max_ca = np.max(data)
     min_ca = np.min(data)
     
-    print(f" Moyenne CA: {moyenne_ca}\n Médiane CA: {mediane_ca},\n Max CA: {max_ca},\n Min CA: {min_ca}\n")
     return moyenne_ca,mediane_ca,max_ca,min_ca
 
 
@@ -95,13 +77,11 @@ def info(data):
 
 
 ############################### PARTIE IA ##########################################
-from datetime import datetime
-
 Mois = []
 Quantite_pizza_mois = []
 Chiffre_Affaire_mois = []
 
-df['order_date'] = pd.to_datetime(df['order_date'])
+df['order_date'] = pd.to_datetime(df['order_date'], dayfirst=True)
 
 for i in range(1, 13):
     Mois.append(i)
@@ -114,4 +94,21 @@ data_pizzas_mois = pd.DataFrame({
     'Chiffre Affaire' : Chiffre_Affaire_mois,
     })  
 
-print(data_pizzas_mois)
+# Le data_pizza_mois regroupe toute les commandes de pizza par mois
+# Et informe sur le nombre de pizzas commandé, le prix total de la commande par mois
+
+
+
+def __main__():
+    # Affichage des données
+    print("DataFrame générale :")
+    print(df.head())
+    print("DataFrame des pizzas :")
+    print(data_pizzas.head())
+    print("\nDataFrame des clients :")
+    print(data_clients.head())
+    print("\nDataFrame des ventes par mois :")
+    print(data_pizzas_mois.head())
+
+if __name__ == "__main__":
+    __main__()
